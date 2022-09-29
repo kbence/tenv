@@ -12,17 +12,18 @@ import (
 func main() {
 	binaryName := path.Base(os.Args[0])
 
-	switch binaryName {
-	case "teleport", "tsh", "tctl", "tbot":
+	if tenv.StringSliceContains(tenv.TeleportBinaryNames, binaryName) {
 		exitCode, err := tenv.Execute(binaryName, os.Args[1:]...)
 		if err != nil {
 			log.Printf("error executing '%s': %s", binaryName, err)
 			os.Exit(exitCode + 128)
 		}
-	default:
-		err := commands.NewRootCommand().Execute()
-		if err != nil {
-			log.Fatalf("error: %s", err)
-		}
+
+		return
+	}
+
+	err := commands.NewRootCommand().Execute()
+	if err != nil {
+		log.Fatalf("error: %s", err)
 	}
 }

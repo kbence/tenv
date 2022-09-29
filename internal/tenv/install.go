@@ -67,21 +67,22 @@ func downloadTeleportBinaries(ctx context.Context, targetDir string, version str
 			continue
 		}
 
-		switch file {
-		case "tbot", "teleport", "tsh", "tctl":
-			if !header.FileInfo().Mode().IsRegular() {
-				return fmt.Errorf("file expected to be regular: %s", header.Name)
-			}
-
-			f, err := os.OpenFile(path.Join(targetDir, file), os.O_CREATE|os.O_WRONLY, header.FileInfo().Mode())
-			if err != nil {
-				return err
-			}
-			defer f.Close()
-
-			io.Copy(f, reader)
-			log.Printf("Copied %s to %s\n", header.Name, path.Join(targetDir, file))
+		if !StringSliceContains(TeleportBinaryNames, file) {
+			continue
 		}
+
+		if !header.FileInfo().Mode().IsRegular() {
+			return fmt.Errorf("file expected to be regular: %s", header.Name)
+		}
+
+		f, err := os.OpenFile(path.Join(targetDir, file), os.O_CREATE|os.O_WRONLY, header.FileInfo().Mode())
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+
+		io.Copy(f, reader)
+		log.Printf("Copied %s to %s\n", header.Name, path.Join(targetDir, file))
 	}
 
 	return nil

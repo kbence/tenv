@@ -12,6 +12,7 @@ func NewRootCommand() *cobra.Command {
 	}
 	cmd.AddCommand(NewInstallCommand())
 	cmd.AddCommand(NewUseCommand())
+	cmd.AddCommand(NewLinkCommand())
 
 	return cmd
 }
