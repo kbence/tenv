@@ -22,8 +22,5 @@ func main() {
 		return
 	}
 
-	err := commands.NewRootCommand().Execute()
-	if err != nil {
-		log.Fatalf("error: %s", err)
-	}
+	commands.NewRootCommand().Execute()
 }
