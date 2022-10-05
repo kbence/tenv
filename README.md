@@ -7,7 +7,7 @@ Installation
 ------------
 
 ```
-$ Download and compile the binary
+#Download and compile the binary
 go get github.com/kbence/tenv/cmd/...
 
 # Create symlinks next to the binary
