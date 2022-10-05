@@ -9,3 +9,4 @@ var TeleportEnvHomeDirectory = os.ExpandEnv("$HOME/.tenv")
 var TeleportEnvVersionDirectory = TeleportEnvHomeDirectory + "/versions"
 
 var TeleportBinaryNames = []string{"teleport", "tsh", "tctl", "tbot"}
+var TeleportOptionalBinaryNames = []string{"tbot"}
