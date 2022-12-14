@@ -14,6 +14,7 @@ func NewRootCommand() *cobra.Command {
 	cmd.AddCommand(NewUseCommand())
 	cmd.AddCommand(NewLinkCommand())
 	cmd.AddCommand(NewListCommand())
+	cmd.AddCommand(NewSelectProfileCommand())
 
 	return cmd
 }
