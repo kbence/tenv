@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"strings"
 )
 
 var SelectedVersionFile = path.Join(TeleportEnvHomeDirectory, "selected-version")
@@ -22,20 +21,6 @@ func UseTeleport(version string) error {
 	}
 
 	return nil
-}
-
-func GetSelectedVersion() (string, error) {
-	versionFromEnv := os.Getenv("TELEPORT_VERSION")
-	if len(versionFromEnv) > 0 {
-		return versionFromEnv, nil
-	}
-
-	content, err := os.ReadFile(SelectedVersionFile)
-	if err != nil {
-		return "", err
-	}
-
-	return strings.TrimSpace(string(content)), nil
 }
 
 func Execute(binaryName string, args ...string) (int, error) {
