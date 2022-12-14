@@ -51,12 +51,22 @@ $ TELEPORT_VERSION=9.0.0 teleport version
 Teleport v9.0.0 git:v9.0.0-0-g1fa8857aa go1.17.7
 ```
 
+### Switch between `tsh` profiles
+
+Use the `select-profile` subcommand to switch between `tsh` profiles (use the domain name you use to connect to your Teleport cluster):
+
+```
+tenv select-profile myteleport.example.com
+```
+
+It saves the provided domain name to `~/.tsh/current-profile`, so Teleport commands will use that cluster further on.
+
 ### Configuration
 
 You can create a confiuration file in `$HOME/.tenv/config.yaml` to automate switching between versions depending on the currently selected cluster and/or current directory:
 
 ```
-# ~/.tenv/config.yaml
+$ cat ~/.tenv/config.yaml
 rules:
   - version: 10.1.1
     match:
