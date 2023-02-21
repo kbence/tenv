@@ -3,8 +3,8 @@ package tenv
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"path"
+	"syscall"
 )
 
 var SelectedVersionFile = path.Join(TeleportEnvHomeDirectory, "selected-version")
@@ -23,19 +23,13 @@ func UseTeleport(version string) error {
 	return nil
 }
 
-func Execute(binaryName string, args ...string) (int, error) {
+func Execute(binaryName string, args ...string) error {
 	version, err := GetSelectedVersion()
 	if err != nil {
-		return 1, err
+		return err
 	}
 
 	binary := path.Join(BinDirectory(version), binaryName)
 
-	c := exec.Command(binary, args...)
-	c.Stdin = os.Stdin
-	c.Stdout = os.Stdout
-	c.Stderr = os.Stderr
-	err = c.Run()
-
-	return c.ProcessState.ExitCode(), err
+	return syscall.Exec(binary, args, os.Environ())
 }

@@ -13,10 +13,10 @@ func main() {
 	binaryName := path.Base(os.Args[0])
 
 	if tenv.StringSliceContains(tenv.TeleportBinaryNames, binaryName) {
-		exitCode, err := tenv.Execute(binaryName, os.Args[1:]...)
+		err := tenv.Execute(binaryName, os.Args[1:]...)
 		if err != nil {
 			log.Printf("error executing '%s': %s", binaryName, err)
-			os.Exit(exitCode + 128)
+			os.Exit(127)
 		}
 
 		return
