@@ -31,5 +31,8 @@ func Execute(binaryName string, args ...string) error {
 
 	binary := path.Join(BinDirectory(version), binaryName)
 
-	return syscall.Exec(binary, args, os.Environ())
+	allArgs := []string{binaryName}
+	allArgs = append(allArgs, args...)
+
+	return syscall.Exec(binary, allArgs, os.Environ())
 }
